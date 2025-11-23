@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Facebook, Twitter, Instagram, Linkedin, Mail, MapPin, Phone } from "lucide-react";
+import { Facebook, Twitter, Instagram, Mail, MapPin, Phone } from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -64,10 +64,9 @@ const Footer = () => {
             <h4 className="text-lg font-semibold mb-4">Follow Us</h4>
             <div className="flex gap-3">
               {[
-                { Icon: Facebook, href: "#" },
-                { Icon: Twitter, href: "#" },
-                { Icon: Instagram, href: "#" },
-                { Icon: Linkedin, href: "#" },
+                { Icon: Facebook, href: "https://www.facebook.com/share/1DXyaRc9tm/?mibextid=wwXIfr" },
+                { Icon: Twitter, href: "https://x.com/goifoundation?s=11" },
+                { Icon: Instagram, href: "https://www.instagram.com/goi_foundation" },
               ].map(({ Icon, href }, index) => (
                 <a
                   key={index}
