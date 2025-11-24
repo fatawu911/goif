@@ -27,7 +27,7 @@ const Header = () => {
     { to: "/projects", label: "Projects" },
     { to: "/events", label: "Events" },
     { to: "/contact", label: "Contact" },
-    { to: "/contact", label: "Support"},
+    { to: "/contact", label: "Support Us"},
   ];
 
   return (
