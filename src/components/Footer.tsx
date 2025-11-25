@@ -53,7 +53,7 @@ const Footer = () => {
                   href="mailto:globalopeninitiative@gmail.com"
                   className="text-primary-foreground/80 hover:text-secondary transition-colors"
                 >
-                  globalopeninitiative@gmail.com
+                  info@globalopeninitiative.org
                 </a>
               </li>
             </ul>

@@ -109,7 +109,8 @@ const Events = () => {
               </a>
             </Button>
           )
-        ) : (
+        ) : 
+        (
           event.regilink && (
             <Button asChild className="w-full bg-secondary hover:bg-secondary-light">
               <a href={event.regilink} target="_blank" rel="noopener noreferrer">

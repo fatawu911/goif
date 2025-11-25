@@ -4,12 +4,14 @@ import { db } from "@/lib/firebase";
 import Hero from "@/components/Hero";
 import { Card, CardContent } from "@/components/ui/card";
 import phero from "@/assets/images/phero.jpg";
+import { Button } from "@/components/ui/button";
 
 interface Project {
   id: string;
   title: string;
   description: string;
   image: string;
+  plink: string;
 }
 
 const Projects = () => {
@@ -19,7 +21,7 @@ const Projects = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const querySnapshot = await getDocs(collection(db, "GOIF"));
+        const querySnapshot = await getDocs(collection(db, "projects"));
         const projectsData: Project[] = [];
         querySnapshot.forEach((doc) => {
           projectsData.push({ id: doc.id, ...doc.data() } as Project);
@@ -88,6 +90,16 @@ const Projects = () => {
                       {project.title}
                     </h3>
                     <p className="text-muted-foreground">{project.description}</p>
+
+                    {project.plink && (
+                      <Button
+                        variant="default"
+                        className="mt-4"
+                        onClick={() => window.open(project.plink, '_blank')}
+                      >
+                        Learn More
+                      </Button>
+                    )}
                   </CardContent>
                 </Card>
               ))}

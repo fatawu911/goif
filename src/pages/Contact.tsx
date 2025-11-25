@@ -22,15 +22,15 @@ const Contact = () => {
     
     try {
       await emailjs.send(
-        'service_lw0erm6',
-        'template_i4atzf9',
+        'service_886o6ba',
+        'template_gah5gso',
         {
           from_name: formData.name,
           from_email: formData.email,
           subject: formData.subject,
           message: formData.message,
         },
-        '6P8OxkC23ZoAvsmHu'
+        'uZjSY0TYwrvN2Wwrn'
       );
       
       toast.success("Message sent successfully! We'll get back to you soon.");
@@ -77,7 +77,7 @@ const Contact = () => {
                           href="mailto:info@goif.org"
                           className="text-muted-foreground hover:text-primary transition-colors text-sm"
                         >
-                          globalopeninitiative@gmail.com
+                          info@globalopeninitiative.org
                         </a>
                       </div>
                     </div>
