@@ -90,10 +90,10 @@ const Projects = () => {
                     <h3 className="text-xl font-bold mb-3 text-foreground group-hover:text-primary transition-colors">
                       {project.title}
                     </h3>
-                    <h5 className="text-x1 font-bold mb-2 text-foreground group-hover:text-primary transition-colors">
+                    <p className="text-muted-foreground">{project.description}</p>
+                    <h5 className="text-x1 text-foreground">
                       {project.license}
                     </h5>
-                    <p className="text-muted-foreground">{project.description}</p>
 
                     {project.plink && (
                       <Button

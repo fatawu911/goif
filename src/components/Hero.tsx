@@ -40,7 +40,7 @@ const Hero = ({ slides, autoPlay = true, interval = 8000 }: HeroProps) => {
 
   return (
     <section
-      className="relative h-[600px] lg:h-[700px] overflow-hidden"
+      className="relative h-[600px] lg:h-[550px] overflow-hidden"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
