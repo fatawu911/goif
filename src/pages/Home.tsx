@@ -24,6 +24,7 @@ interface Program {
   title: string;
   description: string;
   image: string;
+  images?: string[];
   date: string;
   location: string;
 }
@@ -230,15 +231,25 @@ const Home = () => {
                   </div>
                 )}
               </DialogHeader>
-              {selectedProgram.image && (
-                <div className="rounded-lg overflow-hidden">
-                  <img
-                    src={selectedProgram.image}
-                    alt={selectedProgram.title}
-                    className="w-full h-64 object-cover"
-                  />
-                </div>
-              )}
+              {(() => {
+                const allImages = [
+                  ...(selectedProgram.image ? [selectedProgram.image] : []),
+                  ...(selectedProgram.images || []),
+                ];
+                return allImages.length > 0 ? (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {allImages.map((img, index) => (
+                      <div key={index} className="rounded-lg overflow-hidden">
+                        <img
+                          src={img}
+                          alt={`${selectedProgram.title} - ${index + 1}`}
+                          className="w-full h-48 object-cover hover:scale-105 transition-transform duration-300"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                ) : null;
+              })()}
               <DialogDescription className="text-base leading-relaxed">
                 {selectedProgram.description}
               </DialogDescription>
