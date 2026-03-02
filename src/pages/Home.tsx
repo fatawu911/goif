@@ -6,6 +6,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Target, Users, Globe, Calendar, MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { useState as useStateDialog } from "react";
 import hero1 from "@/assets/images/hero1.jpg";
 import hero2 from "@/assets/images/hero2.jpg";
 import hero3 from "@/assets/images/hero3.png";
@@ -30,6 +32,7 @@ const Home = () => {
   const [programs, setPrograms] = useState<Program[]>([]);
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
+  const [selectedProgram, setSelectedProgram] = useState<Program | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -148,11 +151,11 @@ const Home = () => {
               ))}
             </div>
           ) : programs.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="flex flex-wrap justify-center gap-8">
               {programs.map((program) => (
                 <Card
                   key={program.id}
-                  className="overflow-hidden border-none shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group"
+                  className="overflow-hidden border-none shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.5rem)] max-w-sm"
                 >
                   {program.image && (
                     <div className="h-52 overflow-hidden">
@@ -163,12 +166,12 @@ const Home = () => {
                       />
                     </div>
                   )}
-                  <CardContent className="p-6">
+                  <CardContent className="p-6 flex flex-col">
                     <h3 className="text-xl font-bold mb-3 text-foreground group-hover:text-primary transition-colors">
                       {program.title}
                     </h3>
-                    <p className="text-muted-foreground mb-4">{program.description}</p>
-                    <div className="space-y-2">
+                    <p className="text-muted-foreground mb-4 line-clamp-2">{program.description}</p>
+                    <div className="space-y-2 mb-4">
                       {program.date && (
                         <div className="flex items-center gap-2 text-sm text-muted-foreground">
                           <Calendar className="w-4 h-4 text-primary" />
@@ -182,6 +185,13 @@ const Home = () => {
                         </div>
                       )}
                     </div>
+                    <Button
+                      variant="outline"
+                      className="mt-auto w-full"
+                      onClick={() => setSelectedProgram(program)}
+                    >
+                      Read More <ArrowRight className="ml-2 w-4 h-4" />
+                    </Button>
                   </CardContent>
                 </Card>
               ))}
@@ -195,6 +205,47 @@ const Home = () => {
           )}
         </div>
       </section>
+
+      {/* Program Detail Dialog */}
+      <Dialog open={!!selectedProgram} onOpenChange={(open) => !open && setSelectedProgram(null)}>
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+          {selectedProgram && (
+            <>
+              <DialogHeader>
+                <DialogTitle className="text-2xl">{selectedProgram.title}</DialogTitle>
+                {(selectedProgram.date || selectedProgram.location) && (
+                  <div className="flex flex-wrap gap-4 pt-2">
+                    {selectedProgram.date && (
+                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                        <Calendar className="w-4 h-4 text-primary" />
+                        <span>{selectedProgram.date}</span>
+                      </div>
+                    )}
+                    {selectedProgram.location && (
+                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                        <MapPin className="w-4 h-4 text-primary" />
+                        <span>{selectedProgram.location}</span>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </DialogHeader>
+              {selectedProgram.image && (
+                <div className="rounded-lg overflow-hidden">
+                  <img
+                    src={selectedProgram.image}
+                    alt={selectedProgram.title}
+                    className="w-full h-64 object-cover"
+                  />
+                </div>
+              )}
+              <DialogDescription className="text-base leading-relaxed">
+                {selectedProgram.description}
+              </DialogDescription>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
 
       {/* Featured Projects Section */}
       <section className="py-20 bg-muted/30">
