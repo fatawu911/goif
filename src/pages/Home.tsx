@@ -156,7 +156,7 @@ const Home = () => {
               {programs.map((program) => (
                 <Card
                   key={program.id}
-                  className="overflow-hidden border-none shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.5rem)] max-w-sm"
+                  className="overflow-hidden border-none shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.5rem)] max-w-md"
                 >
                   {program.image && (
                     <div className="h-52 overflow-hidden">
@@ -209,7 +209,7 @@ const Home = () => {
 
       {/* Program Detail Dialog */}
       <Dialog open={!!selectedProgram} onOpenChange={(open) => !open && setSelectedProgram(null)}>
-        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
           {selectedProgram && (
             <>
               <DialogHeader>
