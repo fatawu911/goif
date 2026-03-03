@@ -64,6 +64,8 @@ const Home = () => {
     fetchData();
   }, []);
 
+  const [showProgramsDialog, setShowProgramsDialog] = useState(false);
+
   const heroSlides = [
     {
       title: "Empowering Communities Through Education",
@@ -71,7 +73,7 @@ const Home = () => {
       image: hero1,
       buttons: [
         { text: "Get Involved", href: "/contact" },
-        { text: "Our Projects", href: "/projects", variant: "secondary" as const },
+        { text: "Upcoming Programs", action: () => setShowProgramsDialog(true), variant: "secondary" as const },
       ],
     },
     {
@@ -80,7 +82,7 @@ const Home = () => {
       image: hero2,
       buttons: [
         { text: "Learn More", href: "/about" },
-        { text: "View Events", href: "/events", variant: "secondary" as const },
+        { text: "Upcoming Programs", action: () => setShowProgramsDialog(true), variant: "secondary" as const },
       ],
     },
   ];
@@ -257,8 +259,56 @@ const Home = () => {
           )}
         </DialogContent>
       </Dialog>
+      {/* Programs List Dialog (from Hero button) */}
+      <Dialog open={showProgramsDialog} onOpenChange={setShowProgramsDialog}>
+        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="text-2xl">Upcoming Programs</DialogTitle>
+            <DialogDescription>Browse our latest programs and initiatives</DialogDescription>
+          </DialogHeader>
+          {programs.length > 0 ? (
+            <div className="space-y-4">
+              {programs.map((program) => (
+                <Card
+                  key={program.id}
+                  className="overflow-hidden border shadow-sm hover:shadow-md transition-all cursor-pointer"
+                  onClick={() => { setShowProgramsDialog(false); setSelectedProgram(program); }}
+                >
+                  <div className="flex flex-col sm:flex-row">
+                    {program.image && (
+                      <div className="sm:w-48 h-40 sm:h-auto overflow-hidden flex-shrink-0">
+                        <img src={program.image} alt={program.title} className="w-full h-full object-cover" />
+                      </div>
+                    )}
+                    <CardContent className="p-4 flex flex-col justify-center">
+                      <h3 className="text-lg font-bold text-foreground mb-2">{program.title}</h3>
+                      <p className="text-muted-foreground text-sm line-clamp-2 mb-2">{program.description}</p>
+                      <div className="flex flex-wrap gap-3">
+                        {program.date && (
+                          <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                            <Calendar className="w-3 h-3 text-primary" />
+                            <span>{program.date}</span>
+                          </div>
+                        )}
+                        {program.location && (
+                          <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                            <MapPin className="w-3 h-3 text-primary" />
+                            <span>{program.location}</span>
+                          </div>
+                        )}
+                      </div>
+                    </CardContent>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          ) : (
+            <p className="text-center text-muted-foreground py-8">No upcoming programs at this time.</p>
+          )}
+        </DialogContent>
+      </Dialog>
 
-      {/* Featured Projects Section */}
+
       <section className="py-20 bg-muted/30">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="text-center mb-12">
