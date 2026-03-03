@@ -7,7 +7,7 @@ interface HeroSlide {
   title: string;
   description: string;
   image: string;
-  buttons?: { text: string; href: string; variant?: "default" | "secondary" }[];
+  buttons?: { text: string; href?: string; action?: () => void; variant?: "default" | "secondary" }[];
 }
 
 interface HeroProps {
@@ -71,7 +71,7 @@ const Hero = ({ slides, autoPlay = true, interval = 8000 }: HeroProps) => {
                   {slide.buttons.map((button, btnIndex) => (
                     <Button
                       key={btnIndex}
-                      asChild
+                      asChild={!!button.href}
                       size="lg"
                       variant={button.variant === "secondary" ? "secondary" : "default"}
                       className={cn(
@@ -79,8 +79,9 @@ const Hero = ({ slides, autoPlay = true, interval = 8000 }: HeroProps) => {
                           ? "bg-secondary hover:bg-secondary-light"
                           : "bg-primary-foreground text-primary hover:bg-primary-foreground/90"
                       )}
+                      onClick={button.action}
                     >
-                      <a href={button.href}>{button.text}</a>
+                      {button.href ? <a href={button.href}>{button.text}</a> : <span>{button.text}</span>}
                     </Button>
                   ))}
                 </div>
