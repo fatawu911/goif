@@ -19,9 +19,11 @@ interface Project {
   image: string;
 }
 
+
 interface Program {
   id: string;
   title: string;
+  subtitle?: string;
   description: string;
   image: string;
   images?: string[];
@@ -174,6 +176,9 @@ const Home = () => {
                   </div>
                 ) : null;
               })()}
+              {selectedProgram.subtitle && (
+                <h3 className="text-lg font-semibold text-foreground">{selectedProgram.subtitle}</h3>
+              )}
               <DialogDescription className="text-base leading-relaxed">
                 {selectedProgram.description}
               </DialogDescription>
